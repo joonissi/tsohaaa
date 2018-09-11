@@ -1,4 +1,4 @@
-Henkilögalleria TSOHA 2018
+#Henkilögalleria TSOHA 2018
 
 Tässä harjoitustyössä teen web-sovelluksen Pythonilla jonka aiheena on henkilögalleria.
 
@@ -11,5 +11,5 @@ Henkilögalleriassa on eri toiminnallisuuksia:
 
 
 Web-sovelluksen koodi on tässä hakemistossa josta Heroku hakee koodin aina sen muuttuessa,
-ja näyttää uusimman sovelluksen toimivana osoitteessa:
+ja näyttää uusimman sovelluksen toimivana osoitteessa:  
 https://tsoha-pythoni.herokuapp.com/
