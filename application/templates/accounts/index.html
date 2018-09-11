@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Password</th>
+    <th>Email</th>
+  </tr>
+  {% for account in accounts %}
+  <tr>
+    <td>{{ account.username }}</td>
+    <td>{{ account.password }}</td>
+    <td>{{ account.email }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

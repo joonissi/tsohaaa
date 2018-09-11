@@ -3,10 +3,14 @@
 
 <head>
   <meta charset="utf-8">
-  <title>TodoApp</title>
+  <title>Henkilögalleria</title>
 </head>
 
 <body>
+  <ul>
+    <li><a href="{{ url_for('accounts_index') }}">List accounts</a></li>
+    <li><a href="{{ url_for('accounts_form') }}">Add an account</a></li>
+  </ul>
   {% block body %}
   <p>
     Content.
