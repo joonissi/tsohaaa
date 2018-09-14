@@ -6,12 +6,14 @@
     <th>Username</th>
     <th>Password</th>
     <th>Email</th>
+    <th>Edit</th>
   </tr>
   {% for account in accounts %}
   <tr>
     <td>{{ account.username }}</td>
     <td>{{ account.password }}</td>
     <td>{{ account.email }}</td>
+    <td><a href="{{ url_for('accounts_update', account_id=account.id) }}">Edit</a></td>
   </tr>
   {% endfor %}
 </table>
