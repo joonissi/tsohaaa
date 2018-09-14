@@ -2,11 +2,56 @@
 
 {% block body %}
 <form method="POST" action="{{ url_for('accounts_create') }}">
-  <input type="text" name="username" />
-  
-  <input type="text" name="password" />
-  
-  <input type="text" name="email" />
-  <input type="submit" value="Add a new user" />
+  <table>
+    <tr>
+      <td>
+        {{ form.username.label }}
+      </td>
+      <td>
+        {{ form.username }}
+      </td>
+      <td>
+        <ul>
+          {% for error in form.username.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.password.label }}
+      </td>
+      <td>
+        {{ form.password }}
+      </td>
+      <td>
+        <ul>
+          {% for error in form.password.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.email.label }}
+      </td>
+      <td>
+        {{ form.email }}
+      </td>
+      <td>
+        <ul>
+          {% for error in form.email.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input type="submit" value="Create new account" />
+      </td>
+    </tr>
 </form>
 {% endblock %}

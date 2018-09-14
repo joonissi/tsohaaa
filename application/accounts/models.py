@@ -15,3 +15,19 @@ class Account(db.Model):
         self.username = username
         self.password = password
         self.email = email
+
+    
+    def get_id(self):
+      return self.id
+
+
+    def is_active(self):
+      return True
+
+
+    def is_anonymous(self):
+      return False
+
+
+    def is_authenticated(self):
+      return True
