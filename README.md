@@ -19,6 +19,6 @@ https://tsoha-pythoni.herokuapp.com/
   
 
 ## Dokumentaatio
-[Käyttötapaukset](https://github.com/joonissi/tsohaaa/blob/master/documentation/kayttotapaukset.MD)
-[Tietokantahahmotelma](https://github.com/joonissi/tsohaaa/blob/master/documentation/tsoha2018.svg)
-[tuntikirjanpito](https://github.com/joonissi/tsohaaa/blob/master/documentation/tuntikirjanpito.MD)
+[Käyttötapaukset](https://github.com/joonissi/tsohaaa/blob/master/documentation/kayttotapaukset.MD)  
+[Tietokantahahmotelma](https://github.com/joonissi/tsohaaa/blob/master/documentation/tsoha2018.svg)  
+[tuntikirjanpito](https://github.com/joonissi/tsohaaa/blob/master/documentation/tuntikirjanpito.MD)  
