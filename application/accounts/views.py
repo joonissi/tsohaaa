@@ -7,44 +7,65 @@ from application.accounts.forms import AccountForm
 def accounts_index():
   return render_template("accounts/index.html", accounts = Account.query.all())
 
+
 @app.route("/accounts/new/")
 def accounts_form():
     return render_template("accounts/new.html", form = AccountForm())
 
-@app.route("/accounts/edit/<account_id>")
+
+@app.route("/accounts/edit/<account_id>", methods=["GET", "POST"])
 def accounts_update(account_id):
 
-  #if method is GET
-  a = Account.query.get(account_id)
+  # if method is GET
+  if request.method == 'GET':
+    my_account = Account.query.get(account_id)
+    form = AccountForm()
+    
+    form.username.data = my_account.username
+    
+    # Not going to be displayed
+    #form.password.data = account.password
+    form.email.data = my_account.email
 
-  return render_template("accounts/edit.html", account = a)
+    return render_template("accounts/edit.html", account = my_account, form = form)
 
-  #else if method is POST
-  # TODO
+  else:
+    form = AccountForm(request.form)
+
+    my_account = Account.query.get(account_id)
+
+    if not form.validate():
+      return render_template("accounts/edit.html", account = my_account, form = form)
+
+    # update fields
+    #my_account.username = form.username.data
+    my_account.password = form.password.data
+    my_account.email = form.email.data
+
+    db.session().commit()
+
+    return redirect(url_for("accounts_index"))
+
 
 @app.route("/accounts/", methods=["POST"])
 def accounts_create():
-    #print(request.form.get("username"))
 
-    #a = Account(request.form.get("username"), request.form.get("password"), request.form.get("email"))
-    #p = Account(request.form.get("password"))
-    #e = Account(request.form.get("email"))
-
-    # wtf forms way
     form = AccountForm(request.form)
+
+    # check if account already exists
+    account = Account.query.filter_by(username=form.username.data).first()
+    if account:
+      # TODO show warning text
+      return render_template("accounts/new.html", form=form)
 
     if not form.validate():
       return render_template("accounts/new.html", form = form)
 
-    a = Account(form.username.data, form.password.data, form.email.data)
-    #a.password = form.password.data
-    #a.email = form.email.data
+    account = Account(form.username.data, form.password.data, form.email.data)
     
-    db.session().add(a)
-    db.session().commit()
+    if (account == None):
+      db.session().add(account)
+      db.session().commit()
   
     return redirect(url_for("accounts_index"))
-
-def accounts_edit():
-  pass
   
