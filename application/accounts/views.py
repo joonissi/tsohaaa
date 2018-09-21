@@ -44,3 +44,7 @@ def accounts_create():
     db.session().commit()
   
     return redirect(url_for("accounts_index"))
+
+def accounts_edit():
+  pass
+  

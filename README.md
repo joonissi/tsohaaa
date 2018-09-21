@@ -13,4 +13,12 @@ Henkilögalleriassa on eri toiminnallisuuksia:
 Web-sovelluksen koodi on tässä hakemistossa josta Heroku hakee koodin aina sen muuttuessa,
 ja näyttää uusimman sovelluksen toimivana osoitteessa:  
   
+
+## Ohjelma tuotannossa
 https://tsoha-pythoni.herokuapp.com/
+  
+
+## Dokumentaatio
+[Käyttötapaukset](https://github.com/joonissi/tsohaaa/blob/master/documentation/kayttotapaukset.MD)
+[Tietokantahahmotelma](https://github.com/joonissi/tsohaaa/blob/master/documentation/tsoha2018.svg)
+[tuntikirjanpito](https://github.com/joonissi/tsohaaa/blob/master/documentation/tuntikirjanpito.MD)
