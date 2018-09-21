@@ -7,9 +7,17 @@
 </head>
 
 <body>
+  {% if current_user.is_authenticated %}
+  <p>
+Kirjautunut nimellä {{ current_user.username }}. <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
+  </p>
+  {% else %}
+  <a href="{{ url_for('auth_login') }}">Kirjaudu</a>
+  {% endif %}
+
   <ul>
-    <li><a href="{{ url_for('accounts_index') }}">List accounts</a></li>
-    <li><a href="{{ url_for('accounts_form') }}">Add an account</a></li>
+    <li><a href="{{ url_for('users_index') }}">List accounts</a></li>
+    <li><a href="{{ url_for('users_form') }}">Add an account</a></li>
   </ul>
   {% block body %}
   <p>

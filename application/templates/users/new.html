@@ -1,7 +1,10 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('accounts_update', account_id = account.id) }}">
+{% if message %}
+  <div>{{ message }}</div>
+{% endif %}
+<form method="POST" action="{{ url_for('users_create') }}">
   <table>
     <tr>
       <td>
@@ -50,7 +53,7 @@
     </tr>
     <tr>
       <td colspan="2">
-        <input type="submit" value="Edit account" />
+        <input type="submit" value="Create new account" />
       </td>
     </tr>
 </form>
