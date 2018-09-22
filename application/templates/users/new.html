@@ -4,7 +4,7 @@
 {% if message %}
   <div>{{ message }}</div>
 {% endif %}
-<form method="POST" action="{{ url_for('users_create') }}">
+<form method="POST" action="{{ url_for('users_create') }}" enctype="multipart/form-data">
   <table>
     <tr>
       <td>
@@ -21,6 +21,16 @@
         </ul>
       </td>
     </tr>
+
+    <tr>
+      <td>
+        {{ form.photo.label }}
+      </td>
+      <td>
+        {{ form.photo }}
+      </td>
+    </tr>
+
     <tr>
       <td>
         {{ form.password.label }}

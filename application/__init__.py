@@ -1,5 +1,15 @@
 from flask import Flask
-app = Flask(__name__)
+
+import os
+from werkzeug.utils import secure_filename
+
+#UPLOAD_FOLDER = '/uploads'
+UPLOAD_FOLDER = os.getcwd() + "/uploads/"
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+app = Flask(__name__, static_url_path='/static')
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -12,6 +22,8 @@ from application import views
 
 from application.auth import models
 from application.auth import views
+
+from application.photos import models
 
 from application.auth.models import User
 from os import urandom

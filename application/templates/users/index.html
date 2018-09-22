@@ -3,6 +3,7 @@
 {% block body %}
 <table>
   <tr>
+    <th>Photo</th>
     <th>Username</th>
     <th>Password</th>
     <th>Email</th>
@@ -10,6 +11,7 @@
   </tr>
   {% for account in accounts %}
   <tr>
+    <td><img src="/static/images/{{ account.photo }}"></td>
     <td>{{ account.username }}</td>
     <td>{{ account.password }}</td>
     <td>{{ account.email }}</td>

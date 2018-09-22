@@ -2,7 +2,14 @@ from application import app, db
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user, current_user, login_required
 
+from werkzeug.utils import secure_filename
+from werkzeug.datastructures import CombinedMultiDict
+import os
+import hashlib
+import uuid
+
 from application.auth.models import User
+from application.photos.models import Photo
 from application.auth.forms import AccountForm, LoginForm
 
 
@@ -17,7 +24,7 @@ def auth_login():
   user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
   if not user:
     return render_template("auth/loginform.html", form = form,
-                            error = "No such username or password")
+                            message = "No such username or password")
 
   print("käyttäjä " + user.username + " tunnistettiin")
   
@@ -33,10 +40,13 @@ def auth_logout():
 
 @app.route("/users", methods=["GET"])
 def users_index():
-  print()
-  print(User.query.all())
-  print()
-  return render_template("users/index.html", accounts=User.query.all())
+
+  #user_photos = User.find_user_photos()
+  accounts = User.find_all_users_with_user_photos()
+  
+  #file_path = os.path.join(app.config['UPLOAD_FOLDER'])
+
+  return render_template("users/index.html", accounts=accounts)
 
 
 @app.route("/users/new/")
@@ -84,7 +94,8 @@ def users_update(account_id):
 @login_required
 def users_create():
 
-    form = AccountForm(request.form)
+    #form = AccountForm(request.form)
+    form = AccountForm(CombinedMultiDict((request.files, request.form)))
 
     # check if account already exists
     account = User.query.filter_by(username=form.username.data).first()
@@ -92,10 +103,32 @@ def users_create():
       # TODO show warning text
       return render_template("users/new.html", form=form, message="Username already in use")
 
+    # validate form
     if not form.validate():
       return render_template("users/new.html", form=form)
 
     account = User(form.username.data, form.password.data, form.email.data)
+
+
+
+
+    f = form.photo.data
+  
+    filename = secure_filename(f.filename)
+    
+    extension = filename.split(".")
+    extension = extension[1]
+
+    hashed_filename = str(uuid.uuid4()) + "." + extension
+    
+    print(hashed_filename)
+
+    f.save(os.getcwd() + "/application/static/images/" + hashed_filename)
+
+    photo = Photo(hashed_filename, 'deetailit', True)
+    photo.account_id = current_user.id
+
+    db.session().add(photo)
 
     #if (account == None):
     db.session().add(account)
