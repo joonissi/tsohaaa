@@ -15,7 +15,11 @@ ja näyttää uusimman sovelluksen toimivana osoitteessa:
   
 
 ## Ohjelma tuotannossa
-https://tsoha-pythoni.herokuapp.com/
+https://tsoha-pythoni.herokuapp.com/  
+  
+  
+### Tunnukset sovellukseen  
+demo:salasana
   
 
 ## Dokumentaatio
