@@ -1,5 +1,8 @@
 venv
 __pycache__
 accounts.db
-static/images/*
 users.db
+*.jpg
+*.jpeg
+*.png
+*.gif
