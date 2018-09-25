@@ -78,7 +78,7 @@ class User(db.Model):
       stmt = text(
         "SELECT Photo.link FROM Account"
         " LEFT JOIN Photo ON Account.id = Photo.account_id"
-        " WHERE (Account.id IS :account_id)"
+        " WHERE (Account.id = :account_id)"
       ).params(account_id=account_id)
 
       res = db.engine.execute(stmt)
