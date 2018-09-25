@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{{ message }}
+<form method="POST" action="{{ url_for('auth_register') }}">
+  <table>
+    <tr>
+      <td>
+        {{ form.username.label }}
+      </td>
+      <td>
+        {{ form.username }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.email.label }}
+      </td>
+      <td>
+        {{ form.email }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.password.label }}
+      </td>
+      <td>
+        {{ form.password }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.password_confirmation.label }}
+      </td>
+      <td>
+        {{ form.password_confirmation }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input type="submit" value="Register" />
+      </td>
+    </tr>
+</form>
+{% endblock %}

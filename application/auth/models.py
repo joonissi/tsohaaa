@@ -50,6 +50,44 @@ class User(db.Model):
       for row in res:
           response.append(
               {"id": row[0], "username": row[1], "password": row[2], "email": row[3], "photo": row[4]})
-      #print(response)
+
+      return response
+
+    @staticmethod
+    def find_user_with_pictures(account_id):
+      stmt = text(
+        "SELECT Account.id, Account.username, Account.email, Photo.link FROM Account"
+        " LEFT JOIN Photo ON Account.id = Photo.account_id"
+        " WHERE (Account.id IS :account_id)"
+      ).params(account_id=account_id)
+
+      res = db.engine.execute(stmt)
+
+      response = []
+      for row in res:
+        response.append(
+          {"id": row[0], "username": row[1], "email": row[2], "photo_link": row[3]})
+
+      print(response)
+
+      return response
+
+    
+    @staticmethod
+    def find_user_pictures(account_id):
+      stmt = text(
+        "SELECT Photo.link FROM Account"
+        " LEFT JOIN Photo ON Account.id = Photo.account_id"
+        " WHERE (Account.id IS :account_id)"
+      ).params(account_id=account_id)
+
+      res = db.engine.execute(stmt)
+
+      response = []
+      for row in res:
+        response.append(
+          {"photo_link": row[0]})
+
+      print(response)
 
       return response

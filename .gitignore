@@ -1,8 +1,9 @@
 venv
 __pycache__
-accounts.db
-users.db
 *.jpg
 *.jpeg
 *.png
 *.gif
+*.db
+.vscode
+.idea

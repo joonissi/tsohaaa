@@ -15,9 +15,20 @@ class AccountForm(FlaskForm):
         csrf = False
 
 
+class RegisterForm(FlaskForm):
+    username = StringField("Username")
+    email = StringField("Email", [validators.Length(min=6)])
+    password = PasswordField("Password")
+    password_confirmation = PasswordField("Confirm Password")
+
+    class Meta:
+        csrf = False
+
+
 class LoginForm(FlaskForm):
     username = StringField("Username")
     password = PasswordField("Password")
 
     class Meta:
         csrf = False
+

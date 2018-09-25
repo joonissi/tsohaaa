@@ -1,7 +1,11 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('users_update', account_id = account.id) }}">
+{% for photo in photos %}
+  <img src="/static/images/{{ photo.photo_link }}" width=100 heigth=100>
+{% endfor %}
+
+<form method="POST" action="{{ url_for('users_update', account_id = account.id) }}" enctype="multipart/form-data">
   <table>
     <tr>
       <td>
@@ -16,6 +20,14 @@
           <li>{{ error }}</li>
           {% endfor %}
         </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.photo.label }}
+      </td>
+      <td>
+        {{ form.photo }}
       </td>
     </tr>
     <tr>
