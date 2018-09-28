@@ -29,6 +29,12 @@ from application.auth import views
 from application.photos import models
 
 from application.auth.models import User
+
+from application.conversation.models import Conversation
+from application.conversation.models import participant
+
+from application.message.models import Message
+
 from os import urandom
 
 app.config["SECRET_KEY"] = urandom(32)

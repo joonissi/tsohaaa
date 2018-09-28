@@ -10,7 +10,7 @@ import uuid
 
 from application.auth.models import User
 from application.photos.models import Photo
-from application.auth.forms import AccountForm, RegisterForm,LoginForm
+from application.auth.forms import AccountForm, RegisterForm, LoginForm, MessageForm
 
 # Register
 @app.route("/auth/register", methods = ["GET", "POST"])
@@ -38,6 +38,15 @@ def auth_register():
     account = User(form.username.data, form.password.data, form.email.data)
 
     db.session().add(account)
+    db.session().commit()
+
+    account = User.query.filter_by(username=form.username.data).first()
+
+    photo = Photo('88f532fb-b66d-4e4f-824f-1fff9e825a20.jpg',
+                  'deetailit', True)
+    photo.account_id = account.id
+
+    db.session().add(photo)
     db.session().commit()
 
     return redirect(url_for("users_index"))
@@ -71,9 +80,52 @@ def auth_logout():
 @app.route("/users", methods=["GET"])
 def users_index():
 
-  accounts = User.find_all_users_with_user_photos()
+  if current_user.get_id() == None:
+    accounts = User.find_all_users_with_user_photos()
+    #account_id = current_user.get_id()
+    #print(account_id)
+    #accounts = User.find_all_users_with_user_photos_not_itself(account_id)
+    
 
-  return render_template("users/index.html", accounts=accounts)
+    return render_template("users/index.html", accounts=accounts)
+  
+  else:
+    print(current_user)
+    print(current_user.get_id())
+    print("tanne")
+    account_id = current_user.get_id()
+    accounts = User.find_all_users_with_user_photos_not_itself(account_id)
+    #accounts = User.find_all_users_with_user_photos()
+
+    return render_template("users/index.html", accounts=accounts)
+
+
+# Show user
+@app.route("/users/<account_id>", methods=["GET", "POST"])
+def users_show(account_id):
+
+  if request.method == 'GET':
+    account = User.query.get(account_id)
+    photos = User.find_user_pictures(account_id)
+
+    form = MessageForm()
+
+    return render_template("users/show.html", account=account, form=form, photos=photos)
+
+  else:
+    form = MessageForm(request.form)
+
+    from_account = current_user
+    to_account = account = User.query.get(account_id)
+    print(form.message.data)
+    print("viestin lahettaa kayttaja: " + str(from_account.get_id()))
+    print("viesti lahetetaan kayttajalle: " + str(to_account.id))
+
+    return redirect(url_for("users_index"))
+
+
+
+
 
 # Edit user
 @app.route("/users/edit/<account_id>", methods=["GET", "POST"])

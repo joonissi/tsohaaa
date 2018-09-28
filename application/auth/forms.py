@@ -1,7 +1,13 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired
 
-from wtforms import StringField, PasswordField, validators
+from wtforms import StringField, PasswordField, TextField, validators
+
+class MessageForm(FlaskForm):
+    message = TextField("Message")
+
+    class Meta:
+        csrf = False
 
 
 class AccountForm(FlaskForm):
