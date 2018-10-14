@@ -8,27 +8,11 @@
 <h1>{{ account.username }}</h1>
 
 <form method="POST" action="{{ url_for('users_show', account_id = account.id) }}">
-<table>
-  <tr>
-    <td>
-      {{ form.message.label }}
-    </td>
-    <td>
-      {{ form.message }}
-    </td>
-    <td>
-      <ul>
-        {% for error in form.message.errors %}
-        <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-    </td>
-  </tr>
-    <td colspan="2">
-      <input type="submit" value="Send message" />
-    </td>
-  </tr>
-  </form>
-
+  <div class="form-group">
+    <label for="inputEmail4">Viesti</label>
+    {{ form.message(class_="form-control") }}
+  </div>
+  <button type="submit" class="btn btn-primary">Lähetä</button>
+</form>
 
 {% endblock %}

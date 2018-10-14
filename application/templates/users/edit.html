@@ -5,6 +5,7 @@
   <img src="/static/images/{{ photo.photo_link }}" width=100 heigth=100>
 {% endfor %}
 
+
 <form method="POST" action="{{ url_for('users_update', account_id = account.id) }}" enctype="multipart/form-data">
   <table>
     <tr>
@@ -12,7 +13,7 @@
         {{ form.username.label }}
       </td>
       <td>
-        {{ form.username }}
+        {{ form.username(class_="form-control") }}
       </td>
       <td>
         <ul>
@@ -27,7 +28,7 @@
         {{ form.photo.label }}
       </td>
       <td>
-        {{ form.photo }}
+        {{ form.photo(class_="form-control-file") }}
       </td>
     </tr>
     <tr>
@@ -35,7 +36,7 @@
         {{ form.password.label }}
       </td>
       <td>
-        {{ form.password }}
+        {{ form.password(class_="form-control") }}
       </td>
       <td>
         <ul>
@@ -50,7 +51,7 @@
         {{ form.email.label }}
       </td>
       <td>
-        {{ form.email }}
+        {{ form.email(class_="form-control") }}
       </td>
       <td>
         <ul>
@@ -62,7 +63,7 @@
     </tr>
     <tr>
       <td colspan="2">
-        <input type="submit" value="Edit account" />
+        <button type="submit" class="btn btn-primary">Edit account</button>
       </td>
     </tr>
 </form>

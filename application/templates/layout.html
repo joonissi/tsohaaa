@@ -21,12 +21,14 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('users_index') }} ">List users</a>
           </li>
+          {% if current_user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('users_index') }} ">Search</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('messages_index') }} ">Conversations</a>
           </li>
+          {% endif %}
         </ul>
         <ul class="navbar-nav">
           {% if current_user.is_authenticated %}
