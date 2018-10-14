@@ -2,6 +2,13 @@ from application import db
 
 from sqlalchemy.sql import text
 
+conversations = db.Table('conversations',
+                db.Column('account_id', db.Integer, db.ForeignKey(
+                    'account.id'), primary_key=True),
+                db.Column('message_id', db.Integer, db.ForeignKey(
+                    'message.id'), primary_key=True)
+                )
+
 
 class User(db.Model):
 
@@ -9,7 +16,7 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    username = db.Column(db.String(144), nullable=False)
+    username = db.Column(db.String(144), unique=True, nullable=False)
     password = db.Column(db.String(144), nullable=False)
     email = db.Column(db.String(144), nullable=False)
 
@@ -19,7 +26,8 @@ class User(db.Model):
 
     photos = db.relationship("Photo", backref='account', lazy=True)
 
-    conversations = db.relationship("Conversation", backref='account', lazy=True)
+    conversations = db.relationship("Message", secondary="conversations", backref="account")
+
 
     def __init__(self, username, password, email):
         self.username = username

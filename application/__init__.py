@@ -22,17 +22,16 @@ else:
 db = SQLAlchemy(app)
 
 from application import views
-
-from application.auth import models
 from application.auth import views
+from application.message import views
+
 
 from application.photos import models
 
+from application.auth import models
 from application.auth.models import User
 
-from application.conversation.models import Conversation
-from application.conversation.models import participant
-
+from application.message import models
 from application.message.models import Message
 
 from os import urandom
@@ -54,6 +53,13 @@ def load_user(user_id):
 
 try:
     db.create_all()
+    
+    # account1 = User('demo', 'salasana', 'demo@gmail.com')
+    # account2 = User('tunnus', 'salasana', 'tunnus@gmail.com')
+
+    # db.session().add(account1)
+    # db.session().add(account2)
+    # db.session().commit()
 except:
     pass
 

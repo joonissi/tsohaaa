@@ -8,8 +8,10 @@ import os
 import hashlib
 import uuid
 
-from application.auth.models import User
+from application.auth.models import User, conversations
 from application.photos.models import Photo
+from application.message.models import Message
+
 from application.auth.forms import AccountForm, RegisterForm, LoginForm, MessageForm
 
 # Register
@@ -115,11 +117,26 @@ def users_show(account_id):
   else:
     form = MessageForm(request.form)
 
-    from_account = current_user
-    to_account = account = User.query.get(account_id)
-    print(form.message.data)
-    print("viestin lahettaa kayttaja: " + str(from_account.get_id()))
-    print("viesti lahetetaan kayttajalle: " + str(to_account.id))
+    # from_account = current_user
+    # to_account = account = User.query.get(account_id)
+    # print(form.message.data)
+    # print("viestin lahettaa kayttaja: " + str(from_account.get_id()))
+    # print("viesti lahetetaan kayttajalle: " + str(to_account.id))
+    
+    account_from = User.query.get(current_user.get_id())
+    account_to = account = User.query.get(account_id)
+
+
+    m = Message(form.message.data)
+    
+    account_from.conversations.append(m)
+    account_to.conversations.append(m)
+
+
+
+
+    #db.session().add(msg)
+    db.session().commit()
 
     return redirect(url_for("users_index"))
 

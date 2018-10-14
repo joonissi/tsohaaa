@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{{ message }}
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Message</th>
+    <th>Conversation ID</th>
+    <th>Sender</th>
+  </tr>
+{% for message in messages %}
+  <tr>
+    <td>{{ message.id }}</td>
+    <td>{{ message.message }}</td>
+    <td>{{ message.conversation_id }}</td>
+    <td>{{ message.account[0].username }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
