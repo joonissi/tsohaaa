@@ -24,5 +24,5 @@ demo:salasana
 
 ## Dokumentaatio
 [Käyttötapaukset](https://github.com/joonissi/tsohaaa/blob/master/documentation/kayttotapaukset.MD)  
-[Tietokantahahmotelma](https://github.com/joonissi/tsohaaa/blob/master/documentation/tsoha2018.svg)  
+[Tietokantakaavio](https://github.com/joonissi/tsohaaa/blob/master/documentation/tietokantakaavio.pdf)  
 [tuntikirjanpito](https://github.com/joonissi/tsohaaa/blob/master/documentation/tuntikirjanpito.MD)  
