@@ -31,6 +31,7 @@
         {{ form.email(class_="form-control") }}
       </div>
   </div>
-  <button type="submit" class="btn btn-primary">Edit account</button>
+  <button type="submit" class="btn btn-primary">Save changes</button>
+  <a class="btn btn-danger" href="{{ url_for('users_delete', account_id = account.id) }}" role="button">Delete account</a>
 </form>
 {% endblock %}

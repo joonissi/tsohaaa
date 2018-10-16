@@ -195,5 +195,13 @@ def users_update(account_id):
 
 
 # Delete user
+@app.route("/users/delete/<account_id>", methods=["GET"])
+@login_required
+def users_delete(account_id):
+  
+  user = User.query.get(account_id)
 
+  db.session().delete(user)
+  db.session().commit()
 
+  return redirect(url_for('auth_login'))

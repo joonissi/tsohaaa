@@ -24,7 +24,8 @@ class User(db.Model):
     updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(),
                            onupdate=db.func.current_timestamp())
 
-    photos = db.relationship("Photo", backref='account', lazy=True)
+    photos = db.relationship(
+        "Photo", cascade="all, delete-orphan", backref='account', lazy=True)
 
     conversations = db.relationship("Message", secondary="conversations", backref="account")
 
