@@ -133,7 +133,7 @@ def users_show(account_id):
     # print("viesti lahetetaan kayttajalle: " + str(to_account.id))
     
     account_from = User.query.get(current_user.get_id())
-    account_to = account = User.query.get(account_id)
+    account_to = User.query.get(account_id)
 
 
     m = Message(form.message.data)
