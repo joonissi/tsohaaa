@@ -11,6 +11,7 @@
    different users</p>
 {% if conversations %}
   {% for message in conversations %}
+    Debug:
     {{ message.account[0].username }}
     {{ current_user.username }}
     {{ message.account[0].id }}
