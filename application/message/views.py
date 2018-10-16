@@ -25,6 +25,9 @@ def messages_index():
     
     conversations = account.conversations
 
+    print(current_user)
+    print(account.id)
+
     message_count = Message.count_user_messages(current_user.get_id())
     print(message_count)
 
