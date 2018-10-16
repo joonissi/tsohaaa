@@ -1,6 +1,7 @@
-from application import app, db
+from application import app, db, bcrypt
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user, current_user, login_required
+#from flask_bcrypt import Bcrypt
 
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import CombinedMultiDict
@@ -37,7 +38,8 @@ def auth_register():
       return render_template("auth/registerform.html", form=form)
 
     # Proceed with registration
-    account = User(form.username.data, form.password.data, form.email.data)
+    pw_hash = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+    account = User(form.username.data, pw_hash, form.email.data)
 
     db.session().add(account)
     db.session().commit()
@@ -64,8 +66,9 @@ def auth_login():
   form = LoginForm(request.form)
   # TODO validation
 
-  user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
-  if not user:
+  user = User.query.filter_by(username=form.username.data).first()
+  
+  if bcrypt.check_password_hash(user.password, form.password.data) == False:
     return render_template("auth/loginform.html", form = form,
                             message = "No such username or password")
   

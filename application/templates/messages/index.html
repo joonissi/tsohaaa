@@ -2,20 +2,27 @@
 
 {% block body %}
 {{ message }}
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Message</th>
-    <th>Conversation ID</th>
-    <th>Sender</th>
-  </tr>
-{% for message in messages %}
-  <tr>
-    <td>{{ message.id }}</td>
-    <td>{{ message.message }}</td>
-    <td>{{ message.conversation_id }}</td>
-    <td>{{ message.account[0].username }}</td>
-  </tr>
-  {% endfor %}
-</table>
+
+<h1>Conversations</h1>
+<p>
+  <strong>{{ message_count[0][0]}}</strong> 
+   have total of <i>{{ message_count[0][1] }}</i>
+   messages in inbox from <i>{{ message_count[0][2] }}</i>
+   different users</p>
+
+{% for conversation in conversations %}
+  {% if conversation.account[0].username == current_user.username %}
+    <div class="conversation">
+      <img src="/static/images/{{ conversation.account[0].photos[0].link }}" alt="Avatar">
+      <p>{{ conversation.message }}</p>
+      <span class="time-right">11:00</span>
+    </div>
+  {% else %}
+    <div class="conversation darker">
+      <img src="/static/images/{{ conversation.account[0].photos[0].link }}" alt="Avatar">
+      <p>{{ conversation.message }}</p>
+      <span class="time-left">11:01</span>
+    </div>
+  {% endif %}
+{% endfor %}
 {% endblock %}

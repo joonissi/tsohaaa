@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_bcrypt import Bcrypt
 
 import os
 from werkzeug.utils import secure_filename
@@ -8,6 +9,7 @@ UPLOAD_FOLDER = os.getcwd() + "/uploads/"
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__, static_url_path='/static')
+bcrypt = Bcrypt(app)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 

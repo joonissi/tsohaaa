@@ -23,9 +23,12 @@ def messages_index():
   if current_user.get_id() != None:
     account = User.query.get(current_user.get_id())
     
-    messages = account.conversations
+    conversations = account.conversations
 
-    return render_template("messages/index.html", messages=messages)
+    message_count = Message.count_user_messages(current_user.get_id())
+    print(message_count)
+
+    return render_template("messages/index.html", conversations=conversations, message_count=message_count)
 
   else:
     return redirect(url_for("users_index"))
