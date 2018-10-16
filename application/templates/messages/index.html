@@ -12,6 +12,8 @@
 {% if conversations %}
   {% for message in conversations %}
     {% if message.account[0].username == current_user.username %}
+    {% message.account[0].username %}
+    {% current_user.username %}
       <div class="conversation">
         <img src="/static/images/{{ message.account[0].photos[0].link }}" alt="Avatar">
         <p>{{ message.message }}</p>
