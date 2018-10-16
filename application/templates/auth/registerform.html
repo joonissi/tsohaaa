@@ -3,43 +3,30 @@
 {% block body %}
 {{ message }}
 <form method="POST" action="{{ url_for('auth_register') }}">
-  <table>
-    <tr>
-      <td>
-        {{ form.username.label }}
-      </td>
-      <td>
-        {{ form.username }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.email.label }}
-      </td>
-      <td>
-        {{ form.email }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.password.label }}
-      </td>
-      <td>
-        {{ form.password }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.password_confirmation.label }}
-      </td>
-      <td>
-        {{ form.password_confirmation }}
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input type="submit" value="Register" />
-      </td>
-    </tr>
+  <div class="form-group row">
+    {{ form.username.label(class="col-sm-2 col-form-label") }}
+    <div class="col-sm-4">
+      {{ form.username(class="form-control") }}
+    </div>
+  </div>
+  <div class="form-group row">
+    {{ form.email.label(class="col-sm-2 col-form-label") }}
+    <div class="col-sm-4">
+      {{ form.email(class="form-control") }}
+    </div>
+  </div>
+  <div class="form-group row">
+    {{ form.password.label(class="col-sm-2 col-form-label") }}
+    <div class="col-sm-4">
+      {{ form.password(class="form-control") }}
+    </div>
+  </div>
+  <div class="form-group row">
+    {{ form.password_confirmation.label(class="col-sm-2 col-form-label") }}
+    <div class="col-sm-4">
+      {{ form.password_confirmation(class="form-control") }}
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Register</button>
 </form>
 {% endblock %}
