@@ -9,20 +9,23 @@
    have total of <i>{{ message_count[0][1] }}</i>
    messages in inbox from <i>{{ message_count[0][2] }}</i>
    different users</p>
-
-{% for conversation in conversations %}
-  {% if conversation.account[0].username == current_user.username %}
-    <div class="conversation">
-      <img src="/static/images/{{ conversation.account[0].photos[0].link }}" alt="Avatar">
-      <p>{{ conversation.message }}</p>
-      <span class="time-right">11:00</span>
-    </div>
-  {% else %}
-    <div class="conversation darker">
-      <img src="/static/images/{{ conversation.account[0].photos[0].link }}" alt="Avatar">
-      <p>{{ conversation.message }}</p>
-      <span class="time-left">11:01</span>
-    </div>
-  {% endif %}
-{% endfor %}
+{% if conversations %}
+  {% for conversation in conversations %}
+    {% if conversation.account[0].username == current_user.username %}
+      <div class="conversation">
+        <img src="/static/images/{{ conversation.account[0].photos[0].link }}" alt="Avatar">
+        <p>{{ conversation.message }}</p>
+        <span class="time-right">11:00</span>
+      </div>
+    {% else %}
+      <div class="conversation darker">
+        <img src="/static/images/{{ conversation.account[0].photos[0].link }}" alt="Avatar">
+        <p>{{ conversation.message }}</p>
+        <span class="time-left">11:01</span>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% else %}
+  <p>Go to users profile to start new conversation</p>
+{% endif %}
 {% endblock %}

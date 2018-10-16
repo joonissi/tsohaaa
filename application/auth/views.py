@@ -28,10 +28,13 @@ def auth_register():
       return render_template("auth/registerform.html", form = form, message= "Passwords does not match!")
 
     # check if account already exists
-    account = User.query.filter_by(username=form.username.data).first()
+    account = User.query.filter_by(email=form.email.data).first()
     
-    if account:
+    if account and account.username == form.username.data:
       return render_template("auth/registerform.html", form = form, message="Username already in use")
+    
+    if account and account.email == form.email.data:
+      return render_template("auth/registerform.html", form=form, message="Email already in use")
 
     # validate form
     if not form.validate():
@@ -67,10 +70,13 @@ def auth_login():
   # TODO validation
 
   user = User.query.filter_by(username=form.username.data).first()
+  if not user:
+    return render_template("auth/loginform.html", form=form,
+                            message="No such username or password")
   
   if bcrypt.check_password_hash(user.password, form.password.data) == False:
     return render_template("auth/loginform.html", form = form,
-                            message = "No such username or password")
+                            message = "Incorrect username or password")
   
   login_user(user)
   return redirect(url_for("index"))
@@ -175,7 +181,7 @@ def users_update(account_id):
       return render_template("users/edit.html", account=account, form=form, photos=photos)
 
     #account = User(form.username.data, form.password.data, form.email.data)
-    account.password = form.password.data
+    account.password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
     account.email = form.email.data
 
     f = form.photo.data
