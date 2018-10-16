@@ -10,18 +10,18 @@
    messages in inbox from <i>{{ message_count[0][2] }}</i>
    different users</p>
 {% if conversations %}
-  {% for conversation in conversations %}
-    {% if conversation.account[0].username == current_user.username %}
+  {% for message in conversations %}
+    {% if message.account[0].username == current_user.username %}
       <div class="conversation">
-        <img src="/static/images/{{ conversation.account[0].photos[0].link }}" alt="Avatar">
-        <p>{{ conversation.message }}</p>
-        <span class="time-right">11:00</span>
+        <img src="/static/images/{{ message.account[0].photos[0].link }}" alt="Avatar">
+        <p>{{ message.message }}</p>
+        <span class="time-right">{{ message.created_at }}</span>
       </div>
     {% else %}
       <div class="conversation darker">
-        <img src="/static/images/{{ conversation.account[0].photos[0].link }}" alt="Avatar">
-        <p>{{ conversation.message }}</p>
-        <span class="time-left">11:01</span>
+        <img src="/static/images/{{ message.account[0].photos[0].link }}" class="right" alt="Avatar">
+        <p>{{ message.message }}</p>
+        <span class="time-left">{{ message.created_at }}</span>
       </div>
     {% endif %}
   {% endfor %}
