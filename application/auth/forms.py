@@ -4,16 +4,16 @@ from flask_wtf.file import FileField, FileRequired
 from wtforms import StringField, PasswordField, TextField, validators
 
 class MessageForm(FlaskForm):
-    message = TextField("Message")
+    message = TextField("Message", [validators.Length(min=3, max=500)])
 
     class Meta:
         csrf = False
 
 
 class AccountForm(FlaskForm):
-    username = StringField("Username", [validators.Length(min=3)])
-    password = PasswordField("Password", [validators.Length(min=6)])
-    email = StringField("Email", [validators.Length(min=6)])
+    username = StringField("Username", [validators.Length(min=3, max=144)])
+    password = PasswordField("Password", [validators.Length(min=6, max=144)])
+    email = StringField("Email", [validators.Length(min=6, max=144)])
 
     photo = FileField()
 
@@ -22,18 +22,19 @@ class AccountForm(FlaskForm):
 
 
 class RegisterForm(FlaskForm):
-    username = StringField("Username")
-    email = StringField("Email", [validators.Length(min=6)])
-    password = PasswordField("Password")
-    password_confirmation = PasswordField("Confirm Password")
+    username = StringField("Username", [validators.Length(min=3, max=144)])
+    email = StringField("Email", [validators.Length(min=6, max=144)])
+    password = PasswordField("Password", [validators.Length(min=3, max=144)])
+    password_confirmation = PasswordField(
+        "Confirm Password", [validators.Length(min=3, max=144)])
 
     class Meta:
         csrf = False
 
 
 class LoginForm(FlaskForm):
-    username = StringField("Username")
-    password = PasswordField("Password")
+    username = StringField("Username", [validators.Length(min=3, max=144)])
+    password = PasswordField("Password", [validators.Length(min=3, max=144)])
 
     class Meta:
         csrf = False

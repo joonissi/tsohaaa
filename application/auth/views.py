@@ -25,16 +25,16 @@ def auth_register():
     form = RegisterForm()
 
     if (form.password.data != form.password_confirmation.data):
-      return render_template("auth/registerform.html", form = form, message= "Passwords does not match!")
+      return render_template("auth/registerform.html", form = form, message= "Passwords does not match!", message_style="danger")
 
     # check if account already exists
     account = User.query.filter_by(email=form.email.data).first()
     
     if account and account.username == form.username.data:
-      return render_template("auth/registerform.html", form = form, message="Username already in use")
+      return render_template("auth/registerform.html", form=form, message="Username already in use", message_style="danger")
     
     if account and account.email == form.email.data:
-      return render_template("auth/registerform.html", form=form, message="Email already in use")
+      return render_template("auth/registerform.html", form=form, message="Email already in use", message_style="danger")
 
     # validate form
     if not form.validate():
@@ -72,11 +72,11 @@ def auth_login():
   user = User.query.filter_by(username=form.username.data).first()
   if not user:
     return render_template("auth/loginform.html", form=form,
-                            message="No such username or password")
+                            message="No such username or password", message_style="danger")
   
   if bcrypt.check_password_hash(user.password, form.password.data) == False:
     return render_template("auth/loginform.html", form = form,
-                            message = "Incorrect username or password")
+                            message = "Incorrect username or password", message_style="danger")
   
   login_user(user)
   return redirect(url_for("index"))
@@ -87,16 +87,22 @@ def auth_logout():
     logout_user()
     return redirect(url_for("index"))
 
+
+# Search users
+@app.route("/users/search", methods=["GET", "POST"])
+def users_search():
+  if request.method == 'GET':
+    return render_template("users/search.html")
+  else:
+    # TODO SEARCH
+    return render_template("users/search.html")
+
 # List users
 @app.route("/users", methods=["GET"])
 def users_index():
 
   if current_user.get_id() == None:
     accounts = User.find_all_users_with_user_photos()
-    #account_id = current_user.get_id()
-    #print(account_id)
-    #accounts = User.find_all_users_with_user_photos_not_itself(account_id)
-    
 
     return render_template("users/index.html", accounts=accounts)
   
@@ -106,17 +112,17 @@ def users_index():
     print("tanne")
     account_id = current_user.get_id()
     accounts = User.find_all_users_with_user_photos_not_itself(account_id)
-    #accounts = User.find_all_users_with_user_photos()
 
     return render_template("users/index.html", accounts=accounts)
 
 
 # Show user
 @app.route("/users/<account_id>", methods=["GET", "POST"])
+@login_required
 def users_show(account_id):
 
   if request.method == 'GET':
-    account = User.query.get(account_id)
+    account = User.query.get_or_404(account_id)
     photos = User.find_user_pictures(account_id)
 
     form = MessageForm()
@@ -126,25 +132,19 @@ def users_show(account_id):
   else:
     form = MessageForm(request.form)
 
-    # from_account = current_user
-    # to_account = account = User.query.get(account_id)
-    # print(form.message.data)
-    # print("viestin lahettaa kayttaja: " + str(from_account.get_id()))
-    # print("viesti lahetetaan kayttajalle: " + str(to_account.id))
-    
     account_from = User.query.get(current_user.get_id())
     account_to = User.query.get(account_id)
 
+    photos = User.find_user_pictures(account_id)
+
+    if not form.validate():
+      return render_template("users/show.html", account=account_to, form=form, photos=photos)
 
     m = Message(form.message.data)
     
     account_from.conversations.append(m)
     account_to.conversations.append(m)
 
-
-
-
-    #db.session().add(msg)
     db.session().commit()
 
     return redirect(url_for("users_index"))
@@ -160,8 +160,7 @@ def users_update(account_id):
 
   # if method is GET
   if request.method == 'GET':
-    account = User.query.get(account_id)
-    #account = User.find_user_with_pictures(account_id)
+    account = User.query.get_or_404(account_id)
     photos = User.find_user_pictures(account_id)
     
     form = AccountForm()
@@ -180,7 +179,6 @@ def users_update(account_id):
     if not form.validate():
       return render_template("users/edit.html", account=account, form=form, photos=photos)
 
-    #account = User(form.username.data, form.password.data, form.email.data)
     account.password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
     account.email = form.email.data
 
@@ -208,7 +206,7 @@ def users_update(account_id):
 @login_required
 def users_delete(account_id):
   
-  user = User.query.get(account_id)
+  user = User.query.get_or_404(account_id)
 
   db.session().delete(user)
   db.session().commit()

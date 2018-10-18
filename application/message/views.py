@@ -17,11 +17,12 @@ from application.auth.forms import AccountForm, RegisterForm, LoginForm, Message
 
 # List conversations
 @app.route("/messages", methods=["GET", "POST"])
+@login_required
 def messages_index():
   #messages = current_user.conversations
   #if current_user != None:
   if current_user.get_id() != None:
-    account = User.query.get(current_user.get_id())
+    account = User.query.get_or_404(current_user.get_id())
     
     conversations = account.conversations
 

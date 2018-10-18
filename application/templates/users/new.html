@@ -1,9 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{% if message %}
-  <div>{{ message }}</div>
-{% endif %}
+
 <form method="POST" action="{{ url_for('users_create') }}" enctype="multipart/form-data">
   <table>
     <tr>

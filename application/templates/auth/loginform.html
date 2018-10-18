@@ -1,7 +1,6 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ message }}
 <form method="POST" action="{{ url_for('auth_login') }}">
   <div class="form-group row">
     {{ form.username.label(class="col-sm-2 col-form-label") }}

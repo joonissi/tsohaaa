@@ -1,7 +1,6 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ message }}
 
 <h1>Conversations</h1>
 <p>
@@ -11,13 +10,6 @@
    different users</p>
 {% if conversations %}
   {% for message in conversations %}
-    Debug:
-    {{ message.account[0].username }}
-    {{ current_user.username }}
-    {{ message.account[0].id }}
-    {{ current_user.id }}
-    {{ message.account }}
-    {{ current_user }}
     {% if message.account[0].id == current_user.id %}
 
       <div class="conversation">
