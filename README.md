@@ -3,9 +3,10 @@
 Tässä harjoitustyössä teen web-sovelluksen Pythonilla jonka aiheena on henkilögalleria.
 
 Henkilögalleriassa on eri toiminnallisuuksia:
+- Henkilö voi rekisteröityä galleriaan
 - Henkilö voi kirjautua galleriaan
 - Henkilö voi selata toisia käyttäjiä galleriassa
-- Henkilö voi etsiä toista henkilöä galleriasta eri kriteerein
+- Henkilö voi etsiä toista henkilöä galleriasta
 - Henkilö voi lähettää viestin toiselle käyttäjälle
 - Henkilö voi lisätä, muokata ja poistaa tietoja itsestään
 
