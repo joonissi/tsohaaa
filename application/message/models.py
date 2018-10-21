@@ -12,10 +12,6 @@ class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     message = db.Column(db.Text)
-    
-    #conversation_id = db.Column(db.Integer, nullable=False)
-
-    #sender = db.relationship("Account", backref='message', lazy=True)
 
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(),
@@ -40,6 +36,5 @@ class Message(db.Model):
       result = []
       for row in res:
         result.append(row)
-      #row = res.fetchone()
-      #return row
+
       return result

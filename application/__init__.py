@@ -4,7 +4,6 @@ from flask_bcrypt import Bcrypt
 import os
 from werkzeug.utils import secure_filename
 
-#UPLOAD_FOLDER = '/uploads'
 UPLOAD_FOLDER = os.getcwd() + "/uploads/"
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
@@ -56,12 +55,6 @@ def load_user(user_id):
 try:
     db.create_all()
     
-    # account1 = User('demo', 'salasana', 'demo@gmail.com')
-    # account2 = User('tunnus', 'salasana', 'tunnus@gmail.com')
-
-    # db.session().add(account1)
-    # db.session().add(account2)
-    # db.session().commit()
 except:
     pass
 
