@@ -176,6 +176,10 @@ def users_update(account_id):
     account = User.query.filter_by(username=form.username.data).first()
     photos = User.find_user_pictures(account_id)
 
+    if account.id != account_id:
+      return render_template("users/edit.html", account=account, form=form, photos=photos, message="You can edit only own profile!",
+      message_style="danger")
+
     if not form.validate():
       return render_template("users/edit.html", account=account, form=form, photos=photos)
 
