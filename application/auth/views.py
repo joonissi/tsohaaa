@@ -1,7 +1,6 @@
 from application import app, db, bcrypt
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user, current_user, login_required
-#from flask_bcrypt import Bcrypt
 
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import CombinedMultiDict
@@ -176,8 +175,8 @@ def users_update(account_id):
     account = User.query.filter_by(username=form.username.data).first()
     photos = User.find_user_pictures(account_id)
 
-    if account.id != account_id:
-      return render_template("users/edit.html", account=account, form=form, photos=photos, message="You can edit only own profile!",
+    if current_user.get_id() != int(account_id):
+      return render_template("users/edit.html", account=account, form=form, photos=photos, message="You cannot edit this profile!",
       message_style="danger")
 
     if not form.validate():
