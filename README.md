@@ -8,7 +8,8 @@ Henkilögalleriassa on eri toiminnallisuuksia:
 - Henkilö voi selata toisia käyttäjiä galleriassa
 - Henkilö voi etsiä toista henkilöä galleriasta
 - Henkilö voi lähettää viestin toiselle käyttäjälle
-- Henkilö voi lisätä, muokata ja poistaa tietoja itsestään
+- Henkilö voi lisätä, muokata ja poistaa tietoja itsestään  
+- Henkilö voi lisätä kuvia omaan profiiliin  
 
 
 Web-sovelluksen koodi on tässä hakemistossa josta Heroku hakee koodin aina sen muuttuessa,
