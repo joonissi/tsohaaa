@@ -27,3 +27,4 @@ demo:salasana
 ## Dokumentaatio
 [Käyttötapaukset](https://github.com/joonissi/tsohaaa/blob/master/documentation/kayttotapaukset.MD)  
 [Tietokantakaavio](https://github.com/joonissi/tsohaaa/blob/master/documentation/tietokantakaavio.pdf)  
+[Tietokannan luontilauseet](https://github.com/joonissi/tsohaaa/blob/master/documentation/tietokannan_luontilauseet.sql)
