@@ -12,7 +12,7 @@ from application.auth.models import User, conversations
 from application.photos.models import Photo
 from application.message.models import Message
 
-from application.auth.forms import AccountForm, RegisterForm, LoginForm, MessageForm
+from application.auth.forms import AccountForm, RegisterForm, LoginForm, MessageForm, SearchForm
 
 # Register
 @app.route("/auth/register", methods = ["GET", "POST"])
@@ -91,10 +91,20 @@ def auth_logout():
 @app.route("/users/search", methods=["GET", "POST"])
 def users_search():
   if request.method == 'GET':
-    return render_template("users/search.html")
+
+    form = SearchForm()
+
+    return render_template("users/search.html", form=form)
   else:
     # TODO SEARCH
-    return render_template("users/search.html")
+    form = SearchForm()
+
+    username = form.username.data
+
+    account_id = current_user.get_id()
+    accounts = User.find_all_users_with_user_photos_not_itself_by_username(account_id, username)
+
+    return render_template("users/search.html", accounts=accounts, form=form)
 
 # List users
 @app.route("/users", methods=["GET"])
@@ -106,9 +116,6 @@ def users_index():
     return render_template("users/index.html", accounts=accounts)
   
   else:
-    print(current_user)
-    print(current_user.get_id())
-    print("tanne")
     account_id = current_user.get_id()
     accounts = User.find_all_users_with_user_photos_not_itself(account_id)
 

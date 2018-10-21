@@ -3,6 +3,13 @@ from flask_wtf.file import FileField, FileRequired
 
 from wtforms import StringField, PasswordField, TextField, validators
 
+
+class SearchForm(FlaskForm):
+    username = StringField("Username", [validators.Length(min=3, max=144)])
+
+    class Meta:
+        csrf = False
+
 class MessageForm(FlaskForm):
     message = TextField("Message", [validators.Length(min=3, max=500)])
 

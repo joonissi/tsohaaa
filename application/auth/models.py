@@ -65,6 +65,23 @@ class User(db.Model):
       return response
 
     @staticmethod
+    def find_all_users_with_user_photos_not_itself_by_username(account_id, username):
+      stmt = text(
+          "SELECT Account.id, Account.username, Account.password, Account.email, Photo.link FROM Account"
+          " LEFT JOIN Photo ON Account.id = Photo.account_id"
+          " WHERE (Account.id != :account_id) AND Account.username LIKE :username"
+      ).params(account_id=account_id, username=username + "%")
+
+      res = db.engine.execute(stmt)
+
+      response = []
+      for row in res:
+          response.append(
+              {"id": row[0], "username": row[1], "password": row[2], "email": row[3], "photo": row[4]})
+
+      return response
+
+    @staticmethod
     def find_all_users_with_user_photos_not_itself(account_id):
       stmt = text(
           "SELECT Account.id, Account.username, Account.password, Account.email, Photo.link FROM Account"
